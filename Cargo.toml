@@ -1,0 +1,15 @@
+[package]
+name = "mte_201"
+version = "1.0.0"
+edition = "2024"
+
+[dependencies]
+num-complex = "0.4.6"
+rustfft = "6.4.1"
+
+[dev-dependencies]
+criterion = {version = "0.8.1", features = ["html_reports"]}
+
+[[bench]]
+name = "runtime_bench"
+harness = false 
