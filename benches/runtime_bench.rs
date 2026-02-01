@@ -1,6 +1,7 @@
 use criterion::{BatchSize, Criterion, PlotConfiguration, criterion_group, criterion_main};
 use std::hint::black_box;
 use std::vec::Vec;
+use std::io::Write;
 
 fn runtime_bench(c: &mut Criterion) {
     // setup benchmark group
@@ -34,10 +35,13 @@ fn runtime_bench(c: &mut Criterion) {
     );
 
     // print results for later analysis
+    let file = std::fs::File::create("target/runtime_bench_results.txt").unwrap();
+    let mut writer = std::io::BufWriter::new(file);
+
     meas.iter().for_each(|d| {
-        println!("{:?}", d);
+        writeln!(writer, "{:?}", d.as_nanos()).unwrap();
     });
 }
 
-criterion_group!(name = benches; config = Criterion::default().sample_size(10); targets = runtime_bench);
+criterion_group!(name = benches; config = Criterion::default().sample_size(100); targets = runtime_bench);
 criterion_main!(benches);

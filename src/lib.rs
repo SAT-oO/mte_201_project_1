@@ -34,5 +34,3 @@ pub fn fast_fft() {
 
     let _found_freq = (peak_index as f32) * sample_rate / (num_samples as f32);
 }
-
-
